@@ -13,10 +13,10 @@ var express = require('express')
 , path = require('path')
 //, gzippo = require('gzippo')
 //, staticAsset = require('static-asset')
-, env = 'development';
+, env = 'production';
 
-process.env.PORT = process.env.PORT || 80;
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+process.env.PORT = process.env.PORT || 8888;
+process.env.NODE_ENV = process.env.NODE_ENV || 'production';
 
 app.configure(function(){
   app.set('port', process.env.PORT);
@@ -33,7 +33,7 @@ app.configure(function(){
   //app.use(staticAsset(__dirname + "/public/javascripts"));
   //app.use(staticAsset(__dirname + "/public/stylesheets"));
 
-  this.set('env', process.env.NODE_ENV || 'development');
+  this.set('env', process.env.NODE_ENV || 'production');
   env = this.get('env');
   console.log('Express booting in %s mode', env);
 
@@ -82,12 +82,12 @@ app.post('/', function(req, res) {
 
 app.configure('development', function(){
   app.use(express.logger('dev'));
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 app.configure('production', function(){
   app.use(express.logger());
-  app.use(express.errorHandler()); 
+  app.use(express.errorHandler());
 });
 
 server.listen(process.env.PORT);
